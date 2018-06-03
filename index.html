@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+		<script src="wcapi.js"></script>
+	</head>
+	<body ng-app='starter.services' ng-controller='myCtrl'>
+		<div id="result"></div>
+		<script>
+			document.getElementById('result').innerHTML = 'Loading ...';
+			var app = angular.module('starter.services',[]);
+			app.service('WC', function(){
+			    return {
+			        WC: function(){
+			            var Woocommerce = new WoocommerceAPI({
+			                url: 'http://dev.metagig.ml',
+			                consumerKey: 'ck_de36cdd05b4708bac395edcf3c6a371c5cb97c4f',
+			                consumerSecret: 'cs_b08f9cbe4f9630d232c9056b022bbc795dee8e92',
+					        wpAPI: true,
+			  		        version: 'wc/v2'
+			            })
+			            return Woocommerce;
+			        }
+			}});
+			app.controller('myCtrl', function($scope, WC){
+			  var Woocommerce = WC.WC();
+			  Woocommerce.get('products/categories', function(err, data, res){
+			    if(err)
+			      console.log(err);
+			    var output = JSON.parse(res);
+			    console.log(output);
+			    document.getElementById('result').innerHTML = res;
+			  });
+			});
+		</script>
+	</body>
+</html>
