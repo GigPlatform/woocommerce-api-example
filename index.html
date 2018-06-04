@@ -4,7 +4,7 @@
 		<script src="wcapi.js"></script>
 	</head>
 	<body ng-app='starter.services' ng-controller='myCtrl'>
-		<div id="result"></div>
+		<pre id="result" class="prettyprint"></pre>
 		<script>
 			document.getElementById('result').innerHTML = 'Loading ...';
 			var app = angular.module('starter.services',[]);
@@ -28,7 +28,7 @@
 			      console.log(err);
 			    var output = JSON.parse(res);
 			    console.log(output);
-			    document.getElementById('result').innerHTML = res;
+			    document.getElementById('result').innerHTML = JSON.stringify(output, null, 2);;
 			  });
 			});
 		</script>
